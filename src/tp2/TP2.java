@@ -9,7 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -432,22 +434,22 @@ public class TP2 extends javax.swing.JFrame {
             st = koneksi.createStatement();
             String sql = "select * from data";
             ResultSet rs = st.executeQuery(sql);
-            
+
             while(rs.next()) {
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                tblModel.setRowCount(0);
                 String no = String.valueOf(rs.getInt("no"));
                 String merk = rs.getString("merk");
                 String plat = rs.getString("plat");
                 String warna = rs.getString("warna");
                 String jenis = rs.getString("jenis");
-                
                 String tbData[] = {no,merk,plat,warna,jenis};
-                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
-            
+                
                 tblModel.addRow(tbData);
             }
         }   
         catch(Exception e) {
-            System.out.println("gagal");
+            
         }
     }
     
@@ -478,32 +480,35 @@ public class TP2 extends javax.swing.JFrame {
     }//GEN-LAST:event_resetBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        // TODO add your handling code here:
-//        String merk = tbMerk.getText();
-//	String plat = tbPlat.getText();
-//        String warna = tbWarna.getText();
-//        String jenis = cbJenis.getSelectedItem().toString();
-//        listMobil.add(new Mobil(merk, plat, warna, jenis));
-//        dtm.setRowCount(0); //reset data model
-//        if(merk.compareToIgnoreCase("") != 0)
-//        {
-//            for(int i=0; i<listMobil.size();i++) {
-//                Object[] objs= {
-//                        i+1, 
-//                        listMobil.get(i).getMerk(),
-//                        listMobil.get(i).getPlat(),
-//                        listMobil.get(i).getWarna(),
-//                        listMobil.get(i).getJenis()
-//                    };
-//                dtm.addRow(objs);
-//            }
-//            tbMerk.setText("");
-//            tbPlat.setText("");
-//            tbWarna.setText("");
-//            cbJenis.setSelectedItem("");
-//        }
-        jButton2.setVisible(true);
-        jButton3.setVisible(true);                     
+
+        String merk = tbMerk.getText();
+        String plat = tbPlat.getText();
+        String warna = tbWarna.getText();
+        String jenis = cbJenis.getSelectedItem().toString(); 
+        String query = "INSERT INTO data" + "(merk, plat, warna, jenis) VALUES" + " (?, ?, ?, ?)";
+        if(merk.equals("") || plat.equals("") || warna.equals("") || jenis.equals("")){
+            JOptionPane.showMessageDialog(null, "Masukan data secara lengkap");
+        } 
+        else {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp2pbo2021", "root", ""); 
+                PreparedStatement stmt = koneksi.prepareStatement(query);
+                stmt.setString(1, merk);
+                stmt.setString(2, plat);
+                stmt.setString(3, warna);
+                stmt.setString(4, jenis);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data berhasil dimasukan!");   
+            } 
+            catch (Exception e){
+               
+            }
+            tbMerk.setText("");
+            tbPlat.setText("");
+            tbWarna.setText("");
+            cbJenis.setSelectedItem("");
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     /**
