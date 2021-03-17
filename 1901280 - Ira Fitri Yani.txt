@@ -6,7 +6,7 @@ Ilmu Komputer C2
 tidak melakukan kecurangan seperti yang telah di spesifikasikan. Aamiin."
 
 Kesulitan :
-awalnya kesilitan dalam peng-koneksian dengan database dan ketika sudah terkoneksi data yg terbaca hanya 1, namun setelah mencari beberapa referensi lumayan mengerti
+awalnya kesulitan dalam peng-koneksian dengan database dan ketika sudah terkoneksi data yg terbaca hanya 1, namun setelah mencari beberapa referensi lumayan mengerti
 
 Hal baru :
 mengenal code-code dasar, langkah-langkah dasar untuk penggunaan netbeans, penggunaan library connector
