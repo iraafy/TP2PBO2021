@@ -1,0 +1,15 @@
+1901280 
+Ira Fitri Yani
+Ilmu Komputer C2
+
+"Saya Ira Fitri Yani mengerjakan TP2 dalam mata kuliah DPBO untuk keberkahanNya maka saya 
+tidak melakukan kecurangan seperti yang telah di spesifikasikan. Aamiin."
+
+Kesulitan :
+awalnya kesilitan dalam peng-koneksian dengan database dan ketika sudah terkoneksi data yg terbaca hanya 1, namun setelah mencari beberapa referensi lumayan mengerti
+
+Hal baru :
+mengenal code-code dasar, langkah-langkah dasar untuk penggunaan netbeans, penggunaan library connector
+
+fitur yg digunakan :
+Jframe form, library MySQL Connector JDBC, database, layouting (panel, button, label, combobox, photo, textfield)
