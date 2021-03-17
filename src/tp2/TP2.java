@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package tp2;
-import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,12 +23,12 @@ public class TP2 extends javax.swing.JFrame {
     public TP2() {
         
         initComponents();
-
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
         jPanel3.setVisible(true);
         jPanel4.setVisible(false);
         jPanel5.setVisible(false);
         jPanel6.setVisible(false);
-        
     }
 
     /**
@@ -426,30 +425,32 @@ public class TP2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void getData( ){
-        try{
+        
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.getDataVector( ).removeAllElements( );
+        model.fireTableDataChanged( );
+
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp2pbo2021", "root", "");
-            
             Statement st;
             st = koneksi.createStatement();
             String sql = "select * from data";
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet res   = st.executeQuery(sql);
 
-            while(rs.next()) {
-                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
-                tblModel.setRowCount(0);
-                String no = String.valueOf(rs.getInt("no"));
-                String merk = rs.getString("merk");
-                String plat = rs.getString("plat");
-                String warna = rs.getString("warna");
-                String jenis = rs.getString("jenis");
-                String tbData[] = {no,merk,plat,warna,jenis};
-                
-                tblModel.addRow(tbData);
+            while(res.next ()) {
+                 Object[ ] obj = new Object[6];
+                 obj[0] = res.getString("no");
+                 obj[1] = res.getString("merk");
+                 obj[2] = res.getString("plat");
+                 obj[3] = res.getString("warna");
+                 obj[4] = res.getString("jenis");
+
+                 model.addRow(obj);
             }
-        }   
-        catch(Exception e) {
-            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "error");
         }
     }
     
@@ -502,12 +503,14 @@ public class TP2 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil dimasukan!");   
             } 
             catch (Exception e){
-               
+               JOptionPane.showMessageDialog(null, "error");
             }
             tbMerk.setText("");
             tbPlat.setText("");
             tbWarna.setText("");
             cbJenis.setSelectedItem("");
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
