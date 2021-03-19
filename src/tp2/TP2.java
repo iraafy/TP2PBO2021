@@ -441,7 +441,7 @@ public class TP2 extends javax.swing.JFrame {
         model.fireTableDataChanged( );
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp2pbo2021", "root", "");
             Statement st;
             st = koneksi.createStatement();
@@ -502,7 +502,7 @@ public class TP2 extends javax.swing.JFrame {
         } 
         else {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp2pbo2021", "root", ""); 
                 PreparedStatement stmt = koneksi.prepareStatement(query);
                 stmt.setString(1, merk);
